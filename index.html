@@ -133,19 +133,9 @@
   <script>
     const socket = io(); // Connect to the server
 
-    function setContactName(name) {
-      const contactNameElement = document.getElementById('contactName');
-      contactNameElement.textContent = name;
-    }
-
-    function askForContactName() {
-      const contactName = prompt('Please enter your contact name:');
-      if (contactName) {
-        setContactName(contactName);
-      }
-    }
-
-    askForContactName();
+    do {
+      username = prompt("Please enter your username:");
+    } while (!username);
 
     const emojiMap = {
       "react": "⚛️",
