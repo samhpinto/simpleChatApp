@@ -1,0 +1,94 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply some basic styling to the chat container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.chat-container {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the sidebar and chat sections */
+.sidebar {
+    flex: 1;
+    background-color: #075e54;
+    color: #fff;
+    padding: 20px;
+}
+
+.chat {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style the chat header */
+.chat-header {
+    background-color: #128c7e;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-info h2 {
+    font-size: 1.2rem;
+}
+
+.contact-info p {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Style chat messages */
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+/* Style the chat input */
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.chat-input button {
+    background-color: #128c7e;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .chat-container {
+        flex-direction: column;
+    }
+}

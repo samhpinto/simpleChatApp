@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/public"));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + 'index.html');
