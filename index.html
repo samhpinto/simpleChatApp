@@ -146,6 +146,30 @@
 
     setContactName(contactName);
 
+    function handleSlashCommand(command) {
+      const messages = document.getElementById('messages');
+      const messageInput = document.getElementById('messageInput');
+      messageInput.value = ''; // Clear the input space
+
+      switch (command) {
+        case '/clear':
+          messages.innerHTML = ''; // Clear all messages
+          break;
+        case '/random':
+          const randomNumber = Math.floor(Math.random() * 100); // Generate a random number between 0 and 99
+          // Display the random number only to the user who issued the command
+          const li = document.createElement('li');
+          li.appendChild(document.createTextNode(`Random Number: ${randomNumber}`));
+          messages.appendChild(li);
+          break;
+        case '/help':
+          alert('Available Slash Commands:\n\n/clear - Clear all messages\n/random - Generate a random number and display it\n/help - Show this help message');
+          break;
+        default:
+          // Handle unrecognized slash commands
+          socket.emit('chat message', `Unrecognized Slash Command: ${command}`);
+      }
+    }
 
     const emojiMap = {
       "react": "⚛️",
@@ -173,8 +197,13 @@
       const messageInput = document.getElementById('messageInput');
       const message = messageInput.value;
       if (message.trim() !== '') {
-        const messageWithEmojis = replaceWordsWithEmojis(message);
-        socket.emit('chat message', messageWithEmojis); // Send message to the server
+        if (message === '/clear' || message === '/random' || message === '/help') {
+          const command = message.split(' ')[0]; // Extract the command part
+          handleSlashCommand(command);
+        } else {
+          const messageWithEmojis = replaceWordsWithEmojis(message);
+          socket.emit('chat message', messageWithEmojis); // Send message to the server
+        }
         messageInput.value = '';
       }
     }
@@ -183,17 +212,23 @@
       // Get the sender's username
       const sender = message.sender;
 
-      // Create a new list item for the message
-      const li = document.createElement('li');
-      li.appendChild(document.createTextNode(message));
+      // Check if the message is a slash command
+      if (message === '/clear') {
+        handleSlashCommand(message);
+      } else {
+        // Create a new list item for the message
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(message));
 
-      // Add a class to the message element based on the sender's username
-      li.classList.add(`message-${sender}`);
+        // Add a class to the message element based on the sender's username
+        li.classList.add(`message-${sender}`);
 
-      // Add the message to the messages list
-      const messages = document.getElementById('messages');
-      messages.appendChild(li);
+        // Add the message to the messages list
+        const messages = document.getElementById('messages');
+        messages.appendChild(li);
+      }
     });
+
   </script>
 </body>
 
